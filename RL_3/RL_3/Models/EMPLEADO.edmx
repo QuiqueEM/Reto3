@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MVCCHATModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="RL_C_ACCESOS">
+          <Key>
+            <PropertyRef Name="ID_ACCESO" />
+          </Key>
+          <Property Name="ID_ACCESO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESC_ACCESO" Type="nvarchar" MaxLength="24" />
+        </EntityType>
+        <EntityType Name="RL_C_CORPORATIVOS">
+          <Key>
+            <PropertyRef Name="ID_CORPORATIVO" />
+          </Key>
+          <Property Name="ID_CORPORATIVO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESC_CORPORATIVO" Type="nvarchar" MaxLength="24" />
+        </EntityType>
+        <EntityType Name="RL_C_PUESTOS">
+          <Key>
+            <PropertyRef Name="ID_PUESTO" />
+          </Key>
+          <Property Name="ID_PUESTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESC_PUESTO" Type="nvarchar" MaxLength="24" />
+        </EntityType>
+        <EntityType Name="RL_EMPLEADO">
+          <Key>
+            <PropertyRef Name="ID_EMPLEADO" />
+          </Key>
+          <Property Name="ID_EMPLEADO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NO_EMPLEADO" Type="int" />
+          <Property Name="NOMBRE" Type="nvarchar" MaxLength="24" />
+          <Property Name="PATERNO" Type="nvarchar" MaxLength="24" />
+          <Property Name="MATERNO" Type="nvarchar" MaxLength="24" />
+          <Property Name="PUESTO" Type="int" />
+          <Property Name="CORPORATIVO" Type="int" />
+        </EntityType>
+        <EntityType Name="RL_EMPLEADO_CHECADA">
+          <Key>
+            <PropertyRef Name="ID_CHECADA" />
+          </Key>
+          <Property Name="ID_CHECADA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMPLEADO_ID" Type="int" />
+          <Property Name="ENTRADA" Type="datetime" />
+          <Property Name="SALIDA" Type="datetime" />
+          <Property Name="OBSERVACIONES" Type="nvarchar" MaxLength="24" />
+        </EntityType>
+        <Association Name="FK__RL_EMPLEA__CORPO__5070F446">
+          <End Role="RL_C_CORPORATIVOS" Type="Self.RL_C_CORPORATIVOS" Multiplicity="0..1" />
+          <End Role="RL_EMPLEADO" Type="Self.RL_EMPLEADO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RL_C_CORPORATIVOS">
+              <PropertyRef Name="ID_CORPORATIVO" />
+            </Principal>
+            <Dependent Role="RL_EMPLEADO">
+              <PropertyRef Name="CORPORATIVO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RL_EMPLEA__EMPLE__534D60F1">
+          <End Role="RL_EMPLEADO" Type="Self.RL_EMPLEADO" Multiplicity="0..1" />
+          <End Role="RL_EMPLEADO_CHECADA" Type="Self.RL_EMPLEADO_CHECADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RL_EMPLEADO">
+              <PropertyRef Name="ID_EMPLEADO" />
+            </Principal>
+            <Dependent Role="RL_EMPLEADO_CHECADA">
+              <PropertyRef Name="EMPLEADO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RL_EMPLEA__PUEST__4F7CD00D">
+          <End Role="RL_C_PUESTOS" Type="Self.RL_C_PUESTOS" Multiplicity="0..1" />
+          <End Role="RL_EMPLEADO" Type="Self.RL_EMPLEADO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RL_C_PUESTOS">
+              <PropertyRef Name="ID_PUESTO" />
+            </Principal>
+            <Dependent Role="RL_EMPLEADO">
+              <PropertyRef Name="PUESTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MVCCHATModelStoreContainer">
+          <EntitySet Name="RL_C_ACCESOS" EntityType="Self.RL_C_ACCESOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RL_C_CORPORATIVOS" EntityType="Self.RL_C_CORPORATIVOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RL_C_PUESTOS" EntityType="Self.RL_C_PUESTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RL_EMPLEADO" EntityType="Self.RL_EMPLEADO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RL_EMPLEADO_CHECADA" EntityType="Self.RL_EMPLEADO_CHECADA" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__RL_EMPLEA__CORPO__5070F446" Association="Self.FK__RL_EMPLEA__CORPO__5070F446">
+            <End Role="RL_C_CORPORATIVOS" EntitySet="RL_C_CORPORATIVOS" />
+            <End Role="RL_EMPLEADO" EntitySet="RL_EMPLEADO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RL_EMPLEA__EMPLE__534D60F1" Association="Self.FK__RL_EMPLEA__EMPLE__534D60F1">
+            <End Role="RL_EMPLEADO" EntitySet="RL_EMPLEADO" />
+            <End Role="RL_EMPLEADO_CHECADA" EntitySet="RL_EMPLEADO_CHECADA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RL_EMPLEA__PUEST__4F7CD00D" Association="Self.FK__RL_EMPLEA__PUEST__4F7CD00D">
+            <End Role="RL_C_PUESTOS" EntitySet="RL_C_PUESTOS" />
+            <End Role="RL_EMPLEADO" EntitySet="RL_EMPLEADO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MVCCHATModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="RL_C_ACCESOS">
+          <Key>
+            <PropertyRef Name="ID_ACCESO" />
+          </Key>
+          <Property Name="ID_ACCESO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESC_ACCESO" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="RL_C_CORPORATIVOS">
+          <Key>
+            <PropertyRef Name="ID_CORPORATIVO" />
+          </Key>
+          <Property Name="ID_CORPORATIVO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESC_CORPORATIVO" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RL_EMPLEADO" Relationship="Self.FK__RL_EMPLEA__CORPO__5070F446" FromRole="RL_C_CORPORATIVOS" ToRole="RL_EMPLEADO" />
+        </EntityType>
+        <EntityType Name="RL_C_PUESTOS">
+          <Key>
+            <PropertyRef Name="ID_PUESTO" />
+          </Key>
+          <Property Name="ID_PUESTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESC_PUESTO" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RL_EMPLEADO" Relationship="Self.FK__RL_EMPLEA__PUEST__4F7CD00D" FromRole="RL_C_PUESTOS" ToRole="RL_EMPLEADO" />
+        </EntityType>
+        <EntityType Name="RL_EMPLEADO">
+          <Key>
+            <PropertyRef Name="ID_EMPLEADO" />
+          </Key>
+          <Property Name="ID_EMPLEADO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NO_EMPLEADO" Type="Int32" />
+          <Property Name="NOMBRE" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="PATERNO" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="MATERNO" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="PUESTO" Type="Int32" />
+          <Property Name="CORPORATIVO" Type="Int32" />
+          <NavigationProperty Name="RL_C_CORPORATIVOS" Relationship="Self.FK__RL_EMPLEA__CORPO__5070F446" FromRole="RL_EMPLEADO" ToRole="RL_C_CORPORATIVOS" />
+          <NavigationProperty Name="RL_C_PUESTOS" Relationship="Self.FK__RL_EMPLEA__PUEST__4F7CD00D" FromRole="RL_EMPLEADO" ToRole="RL_C_PUESTOS" />
+          <NavigationProperty Name="RL_EMPLEADO_CHECADA" Relationship="Self.FK__RL_EMPLEA__EMPLE__534D60F1" FromRole="RL_EMPLEADO" ToRole="RL_EMPLEADO_CHECADA" />
+        </EntityType>
+        <EntityType Name="RL_EMPLEADO_CHECADA">
+          <Key>
+            <PropertyRef Name="ID_CHECADA" />
+          </Key>
+          <Property Name="ID_CHECADA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMPLEADO_ID" Type="Int32" />
+          <Property Name="ENTRADA" Type="DateTime" Precision="3" />
+          <Property Name="SALIDA" Type="DateTime" Precision="3" />
+          <Property Name="OBSERVACIONES" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RL_EMPLEADO" Relationship="Self.FK__RL_EMPLEA__EMPLE__534D60F1" FromRole="RL_EMPLEADO_CHECADA" ToRole="RL_EMPLEADO" />
+        </EntityType>
+        <Association Name="FK__RL_EMPLEA__CORPO__5070F446">
+          <End Role="RL_C_CORPORATIVOS" Type="Self.RL_C_CORPORATIVOS" Multiplicity="0..1" />
+          <End Role="RL_EMPLEADO" Type="Self.RL_EMPLEADO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RL_C_CORPORATIVOS">
+              <PropertyRef Name="ID_CORPORATIVO" />
+            </Principal>
+            <Dependent Role="RL_EMPLEADO">
+              <PropertyRef Name="CORPORATIVO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RL_EMPLEA__PUEST__4F7CD00D">
+          <End Role="RL_C_PUESTOS" Type="Self.RL_C_PUESTOS" Multiplicity="0..1" />
+          <End Role="RL_EMPLEADO" Type="Self.RL_EMPLEADO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RL_C_PUESTOS">
+              <PropertyRef Name="ID_PUESTO" />
+            </Principal>
+            <Dependent Role="RL_EMPLEADO">
+              <PropertyRef Name="PUESTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RL_EMPLEA__EMPLE__534D60F1">
+          <End Role="RL_EMPLEADO" Type="Self.RL_EMPLEADO" Multiplicity="0..1" />
+          <End Role="RL_EMPLEADO_CHECADA" Type="Self.RL_EMPLEADO_CHECADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RL_EMPLEADO">
+              <PropertyRef Name="ID_EMPLEADO" />
+            </Principal>
+            <Dependent Role="RL_EMPLEADO_CHECADA">
+              <PropertyRef Name="EMPLEADO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MVCCHATEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="RL_C_ACCESOS" EntityType="Self.RL_C_ACCESOS" />
+          <EntitySet Name="RL_C_CORPORATIVOS" EntityType="Self.RL_C_CORPORATIVOS" />
+          <EntitySet Name="RL_C_PUESTOS" EntityType="Self.RL_C_PUESTOS" />
+          <EntitySet Name="RL_EMPLEADO" EntityType="Self.RL_EMPLEADO" />
+          <EntitySet Name="RL_EMPLEADO_CHECADA" EntityType="Self.RL_EMPLEADO_CHECADA" />
+          <AssociationSet Name="FK__RL_EMPLEA__CORPO__5070F446" Association="Self.FK__RL_EMPLEA__CORPO__5070F446">
+            <End Role="RL_C_CORPORATIVOS" EntitySet="RL_C_CORPORATIVOS" />
+            <End Role="RL_EMPLEADO" EntitySet="RL_EMPLEADO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RL_EMPLEA__PUEST__4F7CD00D" Association="Self.FK__RL_EMPLEA__PUEST__4F7CD00D">
+            <End Role="RL_C_PUESTOS" EntitySet="RL_C_PUESTOS" />
+            <End Role="RL_EMPLEADO" EntitySet="RL_EMPLEADO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RL_EMPLEA__EMPLE__534D60F1" Association="Self.FK__RL_EMPLEA__EMPLE__534D60F1">
+            <End Role="RL_EMPLEADO" EntitySet="RL_EMPLEADO" />
+            <End Role="RL_EMPLEADO_CHECADA" EntitySet="RL_EMPLEADO_CHECADA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MVCCHATModelStoreContainer" CdmEntityContainer="MVCCHATEntities">
+          <EntitySetMapping Name="RL_C_ACCESOS">
+            <EntityTypeMapping TypeName="MVCCHATModel.RL_C_ACCESOS">
+              <MappingFragment StoreEntitySet="RL_C_ACCESOS">
+                <ScalarProperty Name="ID_ACCESO" ColumnName="ID_ACCESO" />
+                <ScalarProperty Name="DESC_ACCESO" ColumnName="DESC_ACCESO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RL_C_CORPORATIVOS">
+            <EntityTypeMapping TypeName="MVCCHATModel.RL_C_CORPORATIVOS">
+              <MappingFragment StoreEntitySet="RL_C_CORPORATIVOS">
+                <ScalarProperty Name="ID_CORPORATIVO" ColumnName="ID_CORPORATIVO" />
+                <ScalarProperty Name="DESC_CORPORATIVO" ColumnName="DESC_CORPORATIVO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RL_C_PUESTOS">
+            <EntityTypeMapping TypeName="MVCCHATModel.RL_C_PUESTOS">
+              <MappingFragment StoreEntitySet="RL_C_PUESTOS">
+                <ScalarProperty Name="ID_PUESTO" ColumnName="ID_PUESTO" />
+                <ScalarProperty Name="DESC_PUESTO" ColumnName="DESC_PUESTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RL_EMPLEADO">
+            <EntityTypeMapping TypeName="MVCCHATModel.RL_EMPLEADO">
+              <MappingFragment StoreEntitySet="RL_EMPLEADO">
+                <ScalarProperty Name="ID_EMPLEADO" ColumnName="ID_EMPLEADO" />
+                <ScalarProperty Name="NO_EMPLEADO" ColumnName="NO_EMPLEADO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="PATERNO" ColumnName="PATERNO" />
+                <ScalarProperty Name="MATERNO" ColumnName="MATERNO" />
+                <ScalarProperty Name="PUESTO" ColumnName="PUESTO" />
+                <ScalarProperty Name="CORPORATIVO" ColumnName="CORPORATIVO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RL_EMPLEADO_CHECADA">
+            <EntityTypeMapping TypeName="MVCCHATModel.RL_EMPLEADO_CHECADA">
+              <MappingFragment StoreEntitySet="RL_EMPLEADO_CHECADA">
+                <ScalarProperty Name="ID_CHECADA" ColumnName="ID_CHECADA" />
+                <ScalarProperty Name="EMPLEADO_ID" ColumnName="EMPLEADO_ID" />
+                <ScalarProperty Name="ENTRADA" ColumnName="ENTRADA" />
+                <ScalarProperty Name="SALIDA" ColumnName="SALIDA" />
+                <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

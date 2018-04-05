@@ -1,0 +1,63 @@
+﻿@model IEnumerable<RL_3.Models.RL_EMPLEADO>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NO_EMPLEADO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NOMBRE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PATERNO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MATERNO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RL_C_CORPORATIVOS.DESC_CORPORATIVO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RL_C_PUESTOS.DESC_PUESTO)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NO_EMPLEADO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PATERNO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MATERNO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RL_C_CORPORATIVOS.DESC_CORPORATIVO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RL_C_PUESTOS.DESC_PUESTO)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_EMPLEADO }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_EMPLEADO }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_EMPLEADO })
+        </td>
+    </tr>
+}
+
+</table>
