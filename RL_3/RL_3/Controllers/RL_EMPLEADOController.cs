@@ -21,6 +21,17 @@ namespace RL_3.Controllers
             return View(rL_EMPLEADO.ToList());
         }
 
+        //GET:  RL_EMPLEADO/getDatosEmpleado
+        //OBTIENE LOS DATOS DE UN EMPLEADO
+        public JsonResult getDatosEmpleado(int NO_EMP)
+        {
+            string queryEmp = "SELECT A.ID_EMPLEADO, (A.NOMBRE  + ' ' + A.PATERNO + ' ' + A.MATERNO) AS NOMBRE_EMPLEADO, B.DESC_PUESTO, C.DESC_CORPORATIVO FROM RL_EMPLEADO A, RL_C_PUESTOS B,	RL_C_CORPORATIVOS C	WHERE A.PUESTO = B.ID_PUESTO AND A.CORPORATIVO = C.ID_CORPORATIVO AND A.NO_EMPLEADO = '" + NO_EMP + "';";
+            var response = db.Database.SqlQuery<DatosEmpleado>(queryEmp);
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+
+        /*
         // GET: RL_EMPLEADO/Details/5
         public ActionResult Details(int? id)
         {
@@ -132,5 +143,6 @@ namespace RL_3.Controllers
             }
             base.Dispose(disposing);
         }
+        */
     }
 }

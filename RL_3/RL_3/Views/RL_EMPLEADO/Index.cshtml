@@ -1,63 +1,31 @@
 ﻿@model IEnumerable<RL_3.Models.RL_EMPLEADO>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Consulta de acceso";
 }
 
-<h2>Index</h2>
+<h2>Consulta de Acceso</h2>
+<hr />
+<!--CONTENEDOR CON CAMPO DE TEXTO PARA INGRESAR EL NO. DE EMPLEADO -->
+<div class="container">
+    <div class="row">
+        <h3 class="form-signin-heading text-muted">Ingrese el número de empleado:</h3>
+        <div class="col col-lg-5 col-md-5 col-sm-5">                  
+            <input type="number" class="form-control" required="" autofocus="" id="noEmp">
+            <h5 id="aviso"></h5>
+        </div>
+        <div class="col col-lg-1 col-md-1 col-sm-1">
+            <a data-toggle="tooltip" title="Buscar" class="frmBoton" id="btnConsulta" href="#"><i class="glyphicon glyphicon-search"></i></a> 
+        </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.NO_EMPLEADO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NOMBRE)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PATERNO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MATERNO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RL_C_CORPORATIVOS.DESC_CORPORATIVO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RL_C_PUESTOS.DESC_PUESTO)
-        </th>
-        <th></th>
-    </tr>
+        <div class="col col-lg-6 col-md-6 col-sm-6">
+            <div id="dispDatos">
+                <input type="text" id="idEmp" hidden>
+                <h4 id="nombreE"></h4>
+                <h5 id="puestoE"></h5>
+                <h5 id="corporativoE"></h5>
+            </div>            
+        </div>
+     </div>    
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NO_EMPLEADO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NOMBRE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PATERNO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MATERNO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RL_C_CORPORATIVOS.DESC_CORPORATIVO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RL_C_PUESTOS.DESC_PUESTO)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_EMPLEADO }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID_EMPLEADO }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_EMPLEADO })
-        </td>
-    </tr>
-}
-
-</table>

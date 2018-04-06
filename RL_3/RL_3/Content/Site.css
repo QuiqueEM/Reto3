@@ -22,3 +22,14 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+
+.frmBoton {
+    color: #E10098;
+  	font-size:30px;
+}
+
+.frmBoton:hover {
+    color: #ff52c7;  	
+}
