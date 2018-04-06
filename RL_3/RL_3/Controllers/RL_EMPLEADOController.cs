@@ -30,119 +30,13 @@ namespace RL_3.Controllers
             return Json(response, JsonRequestBehavior.AllowGet);
         }
 
-
-        /*
-        // GET: RL_EMPLEADO/Details/5
-        public ActionResult Details(int? id)
+        //GET:  RL_EMPLEADO/getChecadaEmpleado
+        //OBTIENE LOS DATOS DE UN EMPLEADO
+        public JsonResult getChecadaEmpleado(int ID_EMP)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RL_EMPLEADO rL_EMPLEADO = db.RL_EMPLEADO.Find(id);
-            if (rL_EMPLEADO == null)
-            {
-                return HttpNotFound();
-            }
-            return View(rL_EMPLEADO);
-        }
-
-        // GET: RL_EMPLEADO/Create
-        public ActionResult Create()
-        {
-            ViewBag.CORPORATIVO = new SelectList(db.RL_C_CORPORATIVOS, "ID_CORPORATIVO", "DESC_CORPORATIVO");
-            ViewBag.PUESTO = new SelectList(db.RL_C_PUESTOS, "ID_PUESTO", "DESC_PUESTO");
-            return View();
-        }
-
-        // POST: RL_EMPLEADO/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_EMPLEADO,NO_EMPLEADO,NOMBRE,PATERNO,MATERNO,PUESTO,CORPORATIVO")] RL_EMPLEADO rL_EMPLEADO)
-        {
-            if (ModelState.IsValid)
-            {
-                db.RL_EMPLEADO.Add(rL_EMPLEADO);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.CORPORATIVO = new SelectList(db.RL_C_CORPORATIVOS, "ID_CORPORATIVO", "DESC_CORPORATIVO", rL_EMPLEADO.CORPORATIVO);
-            ViewBag.PUESTO = new SelectList(db.RL_C_PUESTOS, "ID_PUESTO", "DESC_PUESTO", rL_EMPLEADO.PUESTO);
-            return View(rL_EMPLEADO);
-        }
-
-        // GET: RL_EMPLEADO/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RL_EMPLEADO rL_EMPLEADO = db.RL_EMPLEADO.Find(id);
-            if (rL_EMPLEADO == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.CORPORATIVO = new SelectList(db.RL_C_CORPORATIVOS, "ID_CORPORATIVO", "DESC_CORPORATIVO", rL_EMPLEADO.CORPORATIVO);
-            ViewBag.PUESTO = new SelectList(db.RL_C_PUESTOS, "ID_PUESTO", "DESC_PUESTO", rL_EMPLEADO.PUESTO);
-            return View(rL_EMPLEADO);
-        }
-
-        // POST: RL_EMPLEADO/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_EMPLEADO,NO_EMPLEADO,NOMBRE,PATERNO,MATERNO,PUESTO,CORPORATIVO")] RL_EMPLEADO rL_EMPLEADO)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(rL_EMPLEADO).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.CORPORATIVO = new SelectList(db.RL_C_CORPORATIVOS, "ID_CORPORATIVO", "DESC_CORPORATIVO", rL_EMPLEADO.CORPORATIVO);
-            ViewBag.PUESTO = new SelectList(db.RL_C_PUESTOS, "ID_PUESTO", "DESC_PUESTO", rL_EMPLEADO.PUESTO);
-            return View(rL_EMPLEADO);
-        }
-
-        // GET: RL_EMPLEADO/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RL_EMPLEADO rL_EMPLEADO = db.RL_EMPLEADO.Find(id);
-            if (rL_EMPLEADO == null)
-            {
-                return HttpNotFound();
-            }
-            return View(rL_EMPLEADO);
-        }
-
-        // POST: RL_EMPLEADO/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            RL_EMPLEADO rL_EMPLEADO = db.RL_EMPLEADO.Find(id);
-            db.RL_EMPLEADO.Remove(rL_EMPLEADO);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-        */
+            string queryChecador = "SELECT A.ENTRADA  AS CHECADA,C.DESC_ACCESO FROM RL_EMPLEADO_ENTRADA A, RL_C_ACCESOS C WHERE A.ENTRADA_ACCESO = C.ID_ACCESO AND A.EMPLEADO_ID = '" + ID_EMP + "'  UNION ALL    SELECT A.SALIDA, B.DESC_ACCESO FROM RL_EMPLEADO_SALIDA A, RL_C_ACCESOS B WHERE A.SALIDA_ACCESO = B.ID_ACCESO AND A.EMPLEADO_ID = '" + ID_EMP + "' ";                                    
+            var response = db.Database.SqlQuery<ChecadaEmpleado>(queryChecador);
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }               
     }
 }

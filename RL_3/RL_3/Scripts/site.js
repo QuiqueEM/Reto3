@@ -8,12 +8,14 @@
 });
 
 $(document).on("click", "#btnConsulta", function () {
+    $("#aviso").html("");
+    $("#aviso").hide("slow");
+
     var noEempl = $("#noEmp").val();
     if (validaEntrada(noEempl)){
         //LLAMA AJAX
-        getEmpleado(noEempl);
-    }
-    
+        getEmpleado(noEempl);       
+    }    
 });
 
 
@@ -55,13 +57,38 @@ function getEmpleado(numero) {
                     $("#puestoE").html(this.DESC_PUESTO);
                     $("#corporativoE").html(this.DESC_CORPORATIVO);
                 });
+                alert("cargo horarios");
+                //CARGA HORARIOS
+                getChecadaEmpleado($("#idEmp").val());
             }
             else {
                 $("#aviso").html("<i class='glyphicon glyphicon-info-sign'></i> El número de empleado ingresado no existe.");
                 $("#aviso").show("slow");
                 return;
+            }           
+        }
+    });
+}
+
+
+function getChecadaEmpleado(idEmp) {
+    alert("Me llamaron?");
+    $.ajax({
+        url: rootUrl + 'RL_EMPLEADO/getChecadaEmpleado',
+        dataType:'json',
+        type:'POST',
+        data: { ID_EMP: idEmp },
+        success: function (response) {
+            if (response.length != 0) {
+                $.each(response, function (index, chec) {
+                    console.log(this.CHECADA + " " + this.DESC_ACCESO);
+                });
             }
-            
+            else {
+                $("#aviso").html("<i class='glyphicon glyphicon-info-sign'></i> Hubo un problema al cargar el historial de checadas.");
+                $("#aviso").show("slow");
+                return;
+            }
         }
     });
 }
