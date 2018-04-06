@@ -236,7 +236,10 @@
     <Compile Include="Models\RL_EMPLEADO.cs">
       <DependentUpon>EMPLEADO.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\RL_EMPLEADO_CHECADA.cs">
+    <Compile Include="Models\RL_EMPLEADO_ENTRADA.cs">
+      <DependentUpon>EMPLEADO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RL_EMPLEADO_SALIDA.cs">
       <DependentUpon>EMPLEADO.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

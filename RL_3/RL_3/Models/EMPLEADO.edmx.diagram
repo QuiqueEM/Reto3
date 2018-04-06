@@ -9,10 +9,14 @@
         <EntityTypeShape EntityType="MVCCHATModel.RL_C_CORPORATIVOS" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MVCCHATModel.RL_C_PUESTOS" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MVCCHATModel.RL_EMPLEADO" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="MVCCHATModel.RL_EMPLEADO_CHECADA" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
         <AssociationConnector Association="MVCCHATModel.FK__RL_EMPLEA__CORPO__5070F446" ManuallyRouted="false" />
         <AssociationConnector Association="MVCCHATModel.FK__RL_EMPLEA__PUEST__4F7CD00D" ManuallyRouted="false" />
-        <AssociationConnector Association="MVCCHATModel.FK__RL_EMPLEA__EMPLE__534D60F1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MVCCHATModel.RL_EMPLEADO_ENTRADA" Width="1.5" PointX="5.25" PointY="5.625" />
+        <EntityTypeShape EntityType="MVCCHATModel.RL_EMPLEADO_SALIDA" Width="1.5" PointX="5.25" PointY="2.625" />
+        <AssociationConnector Association="MVCCHATModel.FK__RL_EMPLEA__ENTRA__5BE2A6F2" />
+        <AssociationConnector Association="MVCCHATModel.FK__RL_EMPLEA__SALID__5FB337D6" />
+        <AssociationConnector Association="MVCCHATModel.FK__RL_EMPLEA__EMPLE__5AEE82B9" />
+        <AssociationConnector Association="MVCCHATModel.FK__RL_EMPLEA__EMPLE__5EBF139D" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

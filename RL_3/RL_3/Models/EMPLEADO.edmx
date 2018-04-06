@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MVCCHATModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MVCCHATModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="RL_C_ACCESOS">
           <Key>
             <PropertyRef Name="ID_ACCESO" />
@@ -38,15 +38,23 @@
           <Property Name="PUESTO" Type="int" />
           <Property Name="CORPORATIVO" Type="int" />
         </EntityType>
-        <EntityType Name="RL_EMPLEADO_CHECADA">
+        <EntityType Name="RL_EMPLEADO_ENTRADA">
           <Key>
             <PropertyRef Name="ID_CHECADA" />
           </Key>
           <Property Name="ID_CHECADA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EMPLEADO_ID" Type="int" />
           <Property Name="ENTRADA" Type="datetime" />
+          <Property Name="ENTRADA_ACCESO" Type="int" />
+        </EntityType>
+        <EntityType Name="RL_EMPLEADO_SALIDA">
+          <Key>
+            <PropertyRef Name="ID_CHECADA" />
+          </Key>
+          <Property Name="ID_CHECADA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMPLEADO_ID" Type="int" />
           <Property Name="SALIDA" Type="datetime" />
-          <Property Name="OBSERVACIONES" Type="nvarchar" MaxLength="24" />
+          <Property Name="SALIDA_ACCESO" Type="int" />
         </EntityType>
         <Association Name="FK__RL_EMPLEA__CORPO__5070F446">
           <End Role="RL_C_CORPORATIVOS" Type="Self.RL_C_CORPORATIVOS" Multiplicity="0..1" />
@@ -60,15 +68,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RL_EMPLEA__EMPLE__534D60F1">
+        <Association Name="FK__RL_EMPLEA__EMPLE__5AEE82B9">
           <End Role="RL_EMPLEADO" Type="Self.RL_EMPLEADO" Multiplicity="0..1" />
-          <End Role="RL_EMPLEADO_CHECADA" Type="Self.RL_EMPLEADO_CHECADA" Multiplicity="*" />
+          <End Role="RL_EMPLEADO_ENTRADA" Type="Self.RL_EMPLEADO_ENTRADA" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RL_EMPLEADO">
               <PropertyRef Name="ID_EMPLEADO" />
             </Principal>
-            <Dependent Role="RL_EMPLEADO_CHECADA">
+            <Dependent Role="RL_EMPLEADO_ENTRADA">
               <PropertyRef Name="EMPLEADO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RL_EMPLEA__EMPLE__5EBF139D">
+          <End Role="RL_EMPLEADO" Type="Self.RL_EMPLEADO" Multiplicity="0..1" />
+          <End Role="RL_EMPLEADO_SALIDA" Type="Self.RL_EMPLEADO_SALIDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RL_EMPLEADO">
+              <PropertyRef Name="ID_EMPLEADO" />
+            </Principal>
+            <Dependent Role="RL_EMPLEADO_SALIDA">
+              <PropertyRef Name="EMPLEADO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RL_EMPLEA__ENTRA__5BE2A6F2">
+          <End Role="RL_C_ACCESOS" Type="Self.RL_C_ACCESOS" Multiplicity="0..1" />
+          <End Role="RL_EMPLEADO_ENTRADA" Type="Self.RL_EMPLEADO_ENTRADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RL_C_ACCESOS">
+              <PropertyRef Name="ID_ACCESO" />
+            </Principal>
+            <Dependent Role="RL_EMPLEADO_ENTRADA">
+              <PropertyRef Name="ENTRADA_ACCESO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -84,27 +116,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__RL_EMPLEA__SALID__5FB337D6">
+          <End Role="RL_C_ACCESOS" Type="Self.RL_C_ACCESOS" Multiplicity="0..1" />
+          <End Role="RL_EMPLEADO_SALIDA" Type="Self.RL_EMPLEADO_SALIDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RL_C_ACCESOS">
+              <PropertyRef Name="ID_ACCESO" />
+            </Principal>
+            <Dependent Role="RL_EMPLEADO_SALIDA">
+              <PropertyRef Name="SALIDA_ACCESO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="MVCCHATModelStoreContainer">
           <EntitySet Name="RL_C_ACCESOS" EntityType="Self.RL_C_ACCESOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RL_C_CORPORATIVOS" EntityType="Self.RL_C_CORPORATIVOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RL_C_PUESTOS" EntityType="Self.RL_C_PUESTOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RL_EMPLEADO" EntityType="Self.RL_EMPLEADO" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RL_EMPLEADO_CHECADA" EntityType="Self.RL_EMPLEADO_CHECADA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RL_EMPLEADO_ENTRADA" EntityType="Self.RL_EMPLEADO_ENTRADA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RL_EMPLEADO_SALIDA" EntityType="Self.RL_EMPLEADO_SALIDA" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__RL_EMPLEA__CORPO__5070F446" Association="Self.FK__RL_EMPLEA__CORPO__5070F446">
             <End Role="RL_C_CORPORATIVOS" EntitySet="RL_C_CORPORATIVOS" />
             <End Role="RL_EMPLEADO" EntitySet="RL_EMPLEADO" />
           </AssociationSet>
-          <AssociationSet Name="FK__RL_EMPLEA__EMPLE__534D60F1" Association="Self.FK__RL_EMPLEA__EMPLE__534D60F1">
+          <AssociationSet Name="FK__RL_EMPLEA__EMPLE__5AEE82B9" Association="Self.FK__RL_EMPLEA__EMPLE__5AEE82B9">
             <End Role="RL_EMPLEADO" EntitySet="RL_EMPLEADO" />
-            <End Role="RL_EMPLEADO_CHECADA" EntitySet="RL_EMPLEADO_CHECADA" />
+            <End Role="RL_EMPLEADO_ENTRADA" EntitySet="RL_EMPLEADO_ENTRADA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RL_EMPLEA__EMPLE__5EBF139D" Association="Self.FK__RL_EMPLEA__EMPLE__5EBF139D">
+            <End Role="RL_EMPLEADO" EntitySet="RL_EMPLEADO" />
+            <End Role="RL_EMPLEADO_SALIDA" EntitySet="RL_EMPLEADO_SALIDA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RL_EMPLEA__ENTRA__5BE2A6F2" Association="Self.FK__RL_EMPLEA__ENTRA__5BE2A6F2">
+            <End Role="RL_C_ACCESOS" EntitySet="RL_C_ACCESOS" />
+            <End Role="RL_EMPLEADO_ENTRADA" EntitySet="RL_EMPLEADO_ENTRADA" />
           </AssociationSet>
           <AssociationSet Name="FK__RL_EMPLEA__PUEST__4F7CD00D" Association="Self.FK__RL_EMPLEA__PUEST__4F7CD00D">
             <End Role="RL_C_PUESTOS" EntitySet="RL_C_PUESTOS" />
             <End Role="RL_EMPLEADO" EntitySet="RL_EMPLEADO" />
           </AssociationSet>
+          <AssociationSet Name="FK__RL_EMPLEA__SALID__5FB337D6" Association="Self.FK__RL_EMPLEA__SALID__5FB337D6">
+            <End Role="RL_C_ACCESOS" EntitySet="RL_C_ACCESOS" />
+            <End Role="RL_EMPLEADO_SALIDA" EntitySet="RL_EMPLEADO_SALIDA" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MVCCHATModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -114,6 +170,8 @@
           </Key>
           <Property Name="ID_ACCESO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DESC_ACCESO" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RL_EMPLEADO_ENTRADA" Relationship="MVCCHATModel.FK__RL_EMPLEA__ENTRA__5BE2A6F2" FromRole="RL_C_ACCESOS" ToRole="RL_EMPLEADO_ENTRADA" />
+          <NavigationProperty Name="RL_EMPLEADO_SALIDA" Relationship="MVCCHATModel.FK__RL_EMPLEA__SALID__5FB337D6" FromRole="RL_C_ACCESOS" ToRole="RL_EMPLEADO_SALIDA" />
         </EntityType>
         <EntityType Name="RL_C_CORPORATIVOS">
           <Key>
@@ -144,18 +202,8 @@
           <Property Name="CORPORATIVO" Type="Int32" />
           <NavigationProperty Name="RL_C_CORPORATIVOS" Relationship="Self.FK__RL_EMPLEA__CORPO__5070F446" FromRole="RL_EMPLEADO" ToRole="RL_C_CORPORATIVOS" />
           <NavigationProperty Name="RL_C_PUESTOS" Relationship="Self.FK__RL_EMPLEA__PUEST__4F7CD00D" FromRole="RL_EMPLEADO" ToRole="RL_C_PUESTOS" />
-          <NavigationProperty Name="RL_EMPLEADO_CHECADA" Relationship="Self.FK__RL_EMPLEA__EMPLE__534D60F1" FromRole="RL_EMPLEADO" ToRole="RL_EMPLEADO_CHECADA" />
-        </EntityType>
-        <EntityType Name="RL_EMPLEADO_CHECADA">
-          <Key>
-            <PropertyRef Name="ID_CHECADA" />
-          </Key>
-          <Property Name="ID_CHECADA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EMPLEADO_ID" Type="Int32" />
-          <Property Name="ENTRADA" Type="DateTime" Precision="3" />
-          <Property Name="SALIDA" Type="DateTime" Precision="3" />
-          <Property Name="OBSERVACIONES" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="RL_EMPLEADO" Relationship="Self.FK__RL_EMPLEA__EMPLE__534D60F1" FromRole="RL_EMPLEADO_CHECADA" ToRole="RL_EMPLEADO" />
+          <NavigationProperty Name="RL_EMPLEADO_ENTRADA" Relationship="MVCCHATModel.FK__RL_EMPLEA__EMPLE__5AEE82B9" FromRole="RL_EMPLEADO" ToRole="RL_EMPLEADO_ENTRADA" />
+          <NavigationProperty Name="RL_EMPLEADO_SALIDA" Relationship="MVCCHATModel.FK__RL_EMPLEA__EMPLE__5EBF139D" FromRole="RL_EMPLEADO" ToRole="RL_EMPLEADO_SALIDA" />
         </EntityType>
         <Association Name="FK__RL_EMPLEA__CORPO__5070F446">
           <End Role="RL_C_CORPORATIVOS" Type="Self.RL_C_CORPORATIVOS" Multiplicity="0..1" />
@@ -181,24 +229,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RL_EMPLEA__EMPLE__534D60F1">
-          <End Role="RL_EMPLEADO" Type="Self.RL_EMPLEADO" Multiplicity="0..1" />
-          <End Role="RL_EMPLEADO_CHECADA" Type="Self.RL_EMPLEADO_CHECADA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RL_EMPLEADO">
-              <PropertyRef Name="ID_EMPLEADO" />
-            </Principal>
-            <Dependent Role="RL_EMPLEADO_CHECADA">
-              <PropertyRef Name="EMPLEADO_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="MVCCHATEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="RL_C_ACCESOS" EntityType="Self.RL_C_ACCESOS" />
           <EntitySet Name="RL_C_CORPORATIVOS" EntityType="Self.RL_C_CORPORATIVOS" />
           <EntitySet Name="RL_C_PUESTOS" EntityType="Self.RL_C_PUESTOS" />
           <EntitySet Name="RL_EMPLEADO" EntityType="Self.RL_EMPLEADO" />
-          <EntitySet Name="RL_EMPLEADO_CHECADA" EntityType="Self.RL_EMPLEADO_CHECADA" />
           <AssociationSet Name="FK__RL_EMPLEA__CORPO__5070F446" Association="Self.FK__RL_EMPLEA__CORPO__5070F446">
             <End Role="RL_C_CORPORATIVOS" EntitySet="RL_C_CORPORATIVOS" />
             <End Role="RL_EMPLEADO" EntitySet="RL_EMPLEADO" />
@@ -207,11 +242,95 @@
             <End Role="RL_C_PUESTOS" EntitySet="RL_C_PUESTOS" />
             <End Role="RL_EMPLEADO" EntitySet="RL_EMPLEADO" />
           </AssociationSet>
-          <AssociationSet Name="FK__RL_EMPLEA__EMPLE__534D60F1" Association="Self.FK__RL_EMPLEA__EMPLE__534D60F1">
+          <EntitySet Name="RL_EMPLEADO_ENTRADA" EntityType="MVCCHATModel.RL_EMPLEADO_ENTRADA" />
+          <EntitySet Name="RL_EMPLEADO_SALIDA" EntityType="MVCCHATModel.RL_EMPLEADO_SALIDA" />
+          <AssociationSet Name="FK__RL_EMPLEA__ENTRA__5BE2A6F2" Association="MVCCHATModel.FK__RL_EMPLEA__ENTRA__5BE2A6F2">
+            <End Role="RL_C_ACCESOS" EntitySet="RL_C_ACCESOS" />
+            <End Role="RL_EMPLEADO_ENTRADA" EntitySet="RL_EMPLEADO_ENTRADA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RL_EMPLEA__SALID__5FB337D6" Association="MVCCHATModel.FK__RL_EMPLEA__SALID__5FB337D6">
+            <End Role="RL_C_ACCESOS" EntitySet="RL_C_ACCESOS" />
+            <End Role="RL_EMPLEADO_SALIDA" EntitySet="RL_EMPLEADO_SALIDA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RL_EMPLEA__EMPLE__5AEE82B9" Association="MVCCHATModel.FK__RL_EMPLEA__EMPLE__5AEE82B9">
             <End Role="RL_EMPLEADO" EntitySet="RL_EMPLEADO" />
-            <End Role="RL_EMPLEADO_CHECADA" EntitySet="RL_EMPLEADO_CHECADA" />
+            <End Role="RL_EMPLEADO_ENTRADA" EntitySet="RL_EMPLEADO_ENTRADA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RL_EMPLEA__EMPLE__5EBF139D" Association="MVCCHATModel.FK__RL_EMPLEA__EMPLE__5EBF139D">
+            <End Role="RL_EMPLEADO" EntitySet="RL_EMPLEADO" />
+            <End Role="RL_EMPLEADO_SALIDA" EntitySet="RL_EMPLEADO_SALIDA" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="RL_EMPLEADO_ENTRADA">
+          <Key>
+            <PropertyRef Name="ID_CHECADA" />
+          </Key>
+          <Property Name="ID_CHECADA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMPLEADO_ID" Type="Int32" />
+          <Property Name="ENTRADA" Type="DateTime" Precision="3" />
+          <Property Name="ENTRADA_ACCESO" Type="Int32" />
+          <NavigationProperty Name="RL_C_ACCESOS" Relationship="MVCCHATModel.FK__RL_EMPLEA__ENTRA__5BE2A6F2" FromRole="RL_EMPLEADO_ENTRADA" ToRole="RL_C_ACCESOS" />
+          <NavigationProperty Name="RL_EMPLEADO" Relationship="MVCCHATModel.FK__RL_EMPLEA__EMPLE__5AEE82B9" FromRole="RL_EMPLEADO_ENTRADA" ToRole="RL_EMPLEADO" />
+        </EntityType>
+        <EntityType Name="RL_EMPLEADO_SALIDA">
+          <Key>
+            <PropertyRef Name="ID_CHECADA" />
+          </Key>
+          <Property Name="ID_CHECADA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMPLEADO_ID" Type="Int32" />
+          <Property Name="SALIDA" Type="DateTime" Precision="3" />
+          <Property Name="SALIDA_ACCESO" Type="Int32" />
+          <NavigationProperty Name="RL_C_ACCESOS" Relationship="MVCCHATModel.FK__RL_EMPLEA__SALID__5FB337D6" FromRole="RL_EMPLEADO_SALIDA" ToRole="RL_C_ACCESOS" />
+          <NavigationProperty Name="RL_EMPLEADO" Relationship="MVCCHATModel.FK__RL_EMPLEA__EMPLE__5EBF139D" FromRole="RL_EMPLEADO_SALIDA" ToRole="RL_EMPLEADO" />
+        </EntityType>
+        <Association Name="FK__RL_EMPLEA__ENTRA__5BE2A6F2">
+          <End Type="MVCCHATModel.RL_C_ACCESOS" Role="RL_C_ACCESOS" Multiplicity="0..1" />
+          <End Type="MVCCHATModel.RL_EMPLEADO_ENTRADA" Role="RL_EMPLEADO_ENTRADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RL_C_ACCESOS">
+              <PropertyRef Name="ID_ACCESO" />
+            </Principal>
+            <Dependent Role="RL_EMPLEADO_ENTRADA">
+              <PropertyRef Name="ENTRADA_ACCESO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RL_EMPLEA__SALID__5FB337D6">
+          <End Type="MVCCHATModel.RL_C_ACCESOS" Role="RL_C_ACCESOS" Multiplicity="0..1" />
+          <End Type="MVCCHATModel.RL_EMPLEADO_SALIDA" Role="RL_EMPLEADO_SALIDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RL_C_ACCESOS">
+              <PropertyRef Name="ID_ACCESO" />
+            </Principal>
+            <Dependent Role="RL_EMPLEADO_SALIDA">
+              <PropertyRef Name="SALIDA_ACCESO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RL_EMPLEA__EMPLE__5AEE82B9">
+          <End Type="MVCCHATModel.RL_EMPLEADO" Role="RL_EMPLEADO" Multiplicity="0..1" />
+          <End Type="MVCCHATModel.RL_EMPLEADO_ENTRADA" Role="RL_EMPLEADO_ENTRADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RL_EMPLEADO">
+              <PropertyRef Name="ID_EMPLEADO" />
+            </Principal>
+            <Dependent Role="RL_EMPLEADO_ENTRADA">
+              <PropertyRef Name="EMPLEADO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RL_EMPLEA__EMPLE__5EBF139D">
+          <End Type="MVCCHATModel.RL_EMPLEADO" Role="RL_EMPLEADO" Multiplicity="0..1" />
+          <End Type="MVCCHATModel.RL_EMPLEADO_SALIDA" Role="RL_EMPLEADO_SALIDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RL_EMPLEADO">
+              <PropertyRef Name="ID_EMPLEADO" />
+            </Principal>
+            <Dependent Role="RL_EMPLEADO_SALIDA">
+              <PropertyRef Name="EMPLEADO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -255,14 +374,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RL_EMPLEADO_CHECADA">
-            <EntityTypeMapping TypeName="MVCCHATModel.RL_EMPLEADO_CHECADA">
-              <MappingFragment StoreEntitySet="RL_EMPLEADO_CHECADA">
-                <ScalarProperty Name="ID_CHECADA" ColumnName="ID_CHECADA" />
-                <ScalarProperty Name="EMPLEADO_ID" ColumnName="EMPLEADO_ID" />
+          <EntitySetMapping Name="RL_EMPLEADO_ENTRADA">
+            <EntityTypeMapping TypeName="MVCCHATModel.RL_EMPLEADO_ENTRADA">
+              <MappingFragment StoreEntitySet="RL_EMPLEADO_ENTRADA">
+                <ScalarProperty Name="ENTRADA_ACCESO" ColumnName="ENTRADA_ACCESO" />
                 <ScalarProperty Name="ENTRADA" ColumnName="ENTRADA" />
+                <ScalarProperty Name="EMPLEADO_ID" ColumnName="EMPLEADO_ID" />
+                <ScalarProperty Name="ID_CHECADA" ColumnName="ID_CHECADA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RL_EMPLEADO_SALIDA">
+            <EntityTypeMapping TypeName="MVCCHATModel.RL_EMPLEADO_SALIDA">
+              <MappingFragment StoreEntitySet="RL_EMPLEADO_SALIDA">
+                <ScalarProperty Name="SALIDA_ACCESO" ColumnName="SALIDA_ACCESO" />
                 <ScalarProperty Name="SALIDA" ColumnName="SALIDA" />
-                <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+                <ScalarProperty Name="EMPLEADO_ID" ColumnName="EMPLEADO_ID" />
+                <ScalarProperty Name="ID_CHECADA" ColumnName="ID_CHECADA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
