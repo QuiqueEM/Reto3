@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row">
         <h3 class="form-signin-heading text-muted">Ingrese el número de empleado:</h3>
-        <div class="col col-lg-5 col-md-5 col-sm-5">                  
+        <div class="col col-lg-3 col-md-3 col-sm-3">                  
             <input type="number" class="form-control" required="" autofocus="" id="noEmp" min="0"  maxlength="8">            
             <h5 id="aviso"></h5>
         </div>
@@ -18,14 +18,56 @@
             <a data-toggle="tooltip" title="Buscar" class="frmBoton" id="btnConsulta" href="#"><i class="glyphicon glyphicon-search"></i></a> 
         </div>
 
-        <div class="col col-lg-6 col-md-6 col-sm-6">
-            <div id="dispDatos">
+        <div class="col col-lg-8 col-md-8 col-sm-8">
+            <div class="dispDatos">
                 <input type="text" id="idEmp" hidden>
                 <h4 id="nombreE"></h4>
                 <h5 id="puestoE"></h5>
-                <h5 id="corporativoE"></h5>
+                <h5 id="corporativoE"></h5>                               
             </div>            
         </div>
-     </div>    
+     </div> 
+       
+    <div class="row">
+        <div class="dispDatos">
+            <h4>Registro</h4>
+            <hr />
+            <div class="col col-lg-4 col-md-4 col-sm-4">
+                <table id="entrada">
+                    <thead>
+                        <tr>
+                            <th> Fecha</th>
+                            <th> Entrada</th>
+                            <th> Acceso</th>
+                        </tr>
+                    </thead>
+                    <tbody id="datosE"></tbody>
+                </table>
+            </div>
+            <div class="col col-lg-2 col-md-2 col-sm-2">
+                <table id="total">
+                    <thead>
+                        <tr>
+                            <th> Horas</th>
+                        </tr>
+                    </thead>
+                    <tbody id="datosT"></tbody>
+                </table>
+            </div>
+            <div class="col col-lg-4 col-md-4 col-sm-4">
+                <table id="salida">
+                    <thead>
+                        <tr>
+                            <th> Salida</th>
+                            <th> Acceso</th>
+                        </tr>
+                    </thead>
+                    <tbody id="datosS"></tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+
 </div>
 
